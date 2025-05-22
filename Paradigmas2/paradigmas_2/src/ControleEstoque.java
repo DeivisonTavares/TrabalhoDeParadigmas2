@@ -1,77 +1,80 @@
 import java.util.Scanner;
+
 public class ControleEstoque {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Estoque estoque = new Estoque();
 
-        while (true) {
-            System.out.println("\n==== MENU ====");
+        boolean continuar = true;
+
+        while (continuar) {
+            System.out.println("\n===== SISTEMA DE CONTROLE DE ESTOQUE =====");
             System.out.println("1 - Adicionar Produto");
             System.out.println("2 - Remover Produto");
-            System.out.println("3 - Adicionar Estoque");
-            System.out.println("4 - Remover Estoque");
+            System.out.println("3 - Adicionar Estoque (Entrada)");
+            System.out.println("4 - Remover Estoque (Saída)");
             System.out.println("5 - Listar Produtos");
             System.out.println("6 - Sair");
-            System.out.print("Escolha uma opção: ");
+            System.out.print(" Escolha uma opção: ");
+            
             int opcao = input.nextInt();
+            input.nextLine();
 
-            if (opcao == 1) {
-                System.out.print("ID do Produto: ");
-                int id = input.nextInt();
-                input.nextLine(); // limpar buffer
+            switch (opcao) {
+                case 1: {
+                    System.out.print(" ID do Produto: ");
+                    int id = input.nextInt();
+                    input.nextLine();
 
-                System.out.print("Nome do Produto: ");
-                String nome = input.nextLine();
+                    System.out.print(" Nome do Produto: ");
+                    String nome = input.nextLine();
 
-                System.out.print("Quantidade: ");
-                int quantidade = input.nextInt();
+                    System.out.print(" Quantidade Inicial: ");
+                    int quantidade = input.nextInt();
 
-                System.out.print("Preço: ");
-                double preco = input.nextDouble();
+                    System.out.print(" Preço: ");
+                    double preco = input.nextDouble();
 
-                Produto p = new Produto(id, nome, quantidade, preco);
-                estoque.adicionarProduto(p);
-
-            } else if (opcao == 2) {
-                System.out.print("ID do Produto a remover: ");
-                int id = input.nextInt();
-                estoque.removerProduto(id);
-
-            } else if (opcao == 3) {
-                System.out.print("ID do Produto: ");
-                int id = input.nextInt();
-                Produto p = estoque.buscarProdutoPorId(id);
-                if (p != null) {
-                    System.out.print("Quantidade para adicionar: ");
-                    int qtd = input.nextInt();
-                    p.adicionarEstoque(qtd);
-                    System.out.println("Estoque atualizado.");
-                } else {
-                    System.out.println("Produto não encontrado.");
+                    Produto novoProduto = new Produto(id, nome, quantidade, preco);
+                    estoque.adicionarProduto(novoProduto);
                 }
-
-            } else if (opcao == 4) {
-                System.out.print("ID do Produto: ");
-                int id = input.nextInt();
-                Produto p = estoque.buscarProdutoPorId(id);
-                if (p != null) {
-                    System.out.print("Quantidade para remover: ");
-                    int qtd = input.nextInt();
-                    p.removerEstoque(qtd);
-                    System.out.println("Estoque atualizado.");
-                } else {
-                    System.out.println("Produto não encontrado.");
+                case 2: {
+                    System.out.print(" ID do Produto para remover: ");
+                    int id = input.nextInt();
+                    estoque.removerProduto(id);
                 }
-
-            } else if (opcao == 5) {
-                estoque.listarProdutos();
-
-            } else if (opcao == 6) {
-                System.out.println("Saindo...");
-                break;
-
-            } else {
-                System.out.println("Opção inválida.");
+                case 3: {
+                    System.out.print(" ID do Produto: ");
+                    int id = input.nextInt();
+                    Produto produto = estoque.buscarProdutoPorId(id);
+                    if (produto != null) {
+                        System.out.print(" Quantidade a adicionar: ");
+                        int qtd = input.nextInt();
+                        produto.adicionarEstoque(qtd);
+                        System.out.println(" Estoque atualizado.");
+                    } else {
+                        System.out.println(" Produto não encontrado.");
+                    }
+                }
+                case 4: {
+                    System.out.print(" ID do Produto: ");
+                    int id = input.nextInt();
+                    Produto produto = estoque.buscarProdutoPorId(id);
+                    if (produto != null) {
+                        System.out.print(" Quantidade a remover: ");
+                        int qtd = input.nextInt();
+                        produto.removerEstoque(qtd);
+                        System.out.println(" Estoque atualizado.");
+                    } else {
+                        System.out.println(" Produto não encontrado.");
+                    }
+                }
+                case 5: estoque.listarProdutos();
+                case 6: {
+                    continuar = false;
+                    System.out.println(" Encerrando o sistema... Até mais!");
+                }
+                default: System.out.println(" Opção inválida. Tente novamente.");
             }
         }
 
