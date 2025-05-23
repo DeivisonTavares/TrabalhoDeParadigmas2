@@ -37,11 +37,13 @@ public class ControleEstoque {
 
                     Produto novoProduto = new Produto(id, nome, quantidade, preco);
                     estoque.adicionarProduto(novoProduto);
+                    break;
                 }
                 case 2: {
                     System.out.print(" ID do Produto para remover: ");
                     int id = input.nextInt();
                     estoque.removerProduto(id);
+                    break;
                 }
                 case 3: {
                     System.out.print(" ID do Produto: ");
@@ -55,6 +57,7 @@ public class ControleEstoque {
                     } else {
                         System.out.println(" Produto não encontrado.");
                     }
+                    break;
                 }
                 case 4: {
                     System.out.print(" ID do Produto: ");
@@ -68,13 +71,20 @@ public class ControleEstoque {
                     } else {
                         System.out.println(" Produto não encontrado.");
                     }
+                    break;
                 }
-                case 5: estoque.listarProdutos();
+                case 5: {
+                    estoque.listarProdutos();
+                    break;
+                }
                 case 6: {
                     continuar = false;
                     System.out.println(" Encerrando o sistema... Até mais!");
+                    break;
                 }
-                default: System.out.println(" Opção inválida. Tente novamente.");
+                default: {
+                    System.out.println(" Opção inválida. Tente novamente.");
+                }
             }
         }
 
